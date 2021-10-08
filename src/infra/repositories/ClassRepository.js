@@ -11,7 +11,7 @@ module.exports = class ClassRepository {
     this.logger.info(`${callName} trying to get class list`);
     return await this.db
       .select('*')
-      .from('cadaster');
+      .from('class');
   }
 
   async getStudentsOnClass(codeClasscase) {
