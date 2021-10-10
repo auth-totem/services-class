@@ -1,11 +1,6 @@
 const fileName = 'ClassController';
 
-module.exports = ({
-  logger,
-  getClassListUsecase,
-  getStudentsOnClass,
-}) => ({
-  
+module.exports = ({ logger, getClassListUsecase, getStudentsOnClass }) => ({
   getClassList: async (req, res) => {
     const callName = `${fileName}.getClassList()`;
     try {
@@ -21,11 +16,12 @@ module.exports = ({
   getClass: async (req, res) => {
     const callName = `${fileName}.getClass()`;
     try {
-      logger.info(`${callName} entered with id`, req.params.id);
-      const classs = await getStudentsOnClass.getClass(req.params.id);
-      return res.status(200).json(classs);
+      const { id } = req.params;
+      logger.info(`${callName} entered with id ${id}`);
+      const studentsOnClass = await getStudentsOnClass.getClass(id);
+      return res.status(200).json(studentsOnClass);
     } catch (err) {
-      logger.error(`${callName} error ocurred with error`, err);
+      logger.error(`${callName} error ocurred with error ${err}`);
       return res.status(403).json({ error: 'a error has ocurred' });
     }
   },
